@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -115,39 +114,4 @@ public class TestSpring2XML {
         Object dataSource = context.getBean("dataSource");
         System.out.println(dataSource);
     }
-
-    @Test
-    public void test12() {
-        int[] arr = { 9, 5, 1, 6, 3, 8, 4, 2, 7 };
-        quickSort(arr, 0, arr.length - 1);
-        System.out.println("排序后的数组：");
-        for (int num : arr) {
-            System.out.print(num + " ");
-        }
-    }
-
-    public static void quickSort(int[] arr, int low, int high) {
-        if (low < high) {
-            int pivot = partition(arr, low, high); // 获取分区点的索引
-            quickSort(arr, low, pivot - 1); // 对分区点左侧进行快速排序
-            quickSort(arr, pivot + 1, high); // 对分区点右侧进行快速排序
-        }
-    }
-
-    public static int partition(int[] arr, int low, int high) {
-        int pivot = arr[low]; // 选择第一个元素作为分区点
-        while (low < high) {
-            while (low < high && arr[high] >= pivot) {
-                high--;
-            }
-            arr[low] = arr[high]; // 将小于分区点的元素移到左侧
-            while (low < high && arr[low] <= pivot) {
-                low++;
-            }
-            arr[high] = arr[low]; // 将大于分区点的元素移到右侧
-        }
-        arr[low] = pivot; // 将分区点放置到最终位置
-        return low; // 返回分区点的索引
-    }
-
 }

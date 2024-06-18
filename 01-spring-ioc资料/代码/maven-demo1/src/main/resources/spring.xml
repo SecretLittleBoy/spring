@@ -71,4 +71,6 @@
         <constructor-arg name="sex" value="male" />
     </bean>
 
+    <!-- <import resource="./spring-2.xml" /> -->
+
 </beans>
