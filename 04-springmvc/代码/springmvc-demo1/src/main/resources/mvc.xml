@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+	   http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--确定包扫描路径-->
+    <context:component-scan base-package="com.qf.controller"></context:component-scan>
+
+    <!--视图解析器的配置
+        效果：1.捕获后端控制器的返回值="param"
+             2.解析：在返回值的前后做拼接 ==》"/param.jsp"
+    -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--前缀-->
+        <property name="prefix" value="/"></property>
+        <!--后缀-->
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+    <!--配置注解驱动-->
+    <mvc:annotation-driven />
+    <!--将url中包含的该路径视为为静态资源路径，映射到指定的静态资源文件夹中-->
+<!--    <mvc:resources mapping="/images/**" location="/images/" />-->
+
+    <!--访问静态资源的另一种方式
+     当DispatcherServlet没办法处理时，就把请求交给DefaultServlet
+    -->
+    <mvc:default-servlet-handler />
+
+    <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+          id="multipartResolver">
+        <property name="defaultEncoding" value="UTF-8"></property>
+        <property name="maxUploadSize" value="#{1024*1024*16}"></property>
+    </bean>
+
+
+</beans>

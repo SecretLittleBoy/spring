@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--实现了控制反转-->
+    <bean class="dao.impl.ProductDaoOracleImpl" id="productDaoMySQL" />
+
+    <bean class="service.impl.ProductServiceImpl" id="productService">
+        <!--实现了依赖注入-->
+        <property name="productDao" ref="productDaoMySQL"></property>
+    </bean>
+
+
+</beans>

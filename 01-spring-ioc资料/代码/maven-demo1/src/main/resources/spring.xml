@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="com.qf.entity.Product" id="product11" name="product11"/>
+
+    <bean class="com.qf.entity.Product" id="product12" name="product12"/>
+    
+    <alias name="product11" alias="qfproduct"/>
+
+    <bean class="com.qf.entity.Address" id="address">
+        <property name="position" value="北京市海淀区"/>
+        <property name="zipCode" value="100001"/>
+    </bean>
+
+    <bean class="com.qf.entity.User" id="user" autowire="byType">
+        <property name="id" value="1001"/>
+        <property name="password" value="123456" />
+        <property name="sex" value="male" />
+        <property name="age" value="20" />
+        <property name="bornDate" value="1990/1/1" />
+        <!--array-->
+        <property name="hobbys">
+            <array>
+                <value>Run</value>
+                <value>Swim</value>
+                <value>Climb</value>
+            </array>
+        </property>
+        <!--set-->
+        <property name="phones">
+            <set>
+                <value>13777777777</value>
+                <value>13888888888</value>
+                <value>13999999999</value>
+            </set>
+        </property>
+        <!--List-->
+        <property name="names">
+            <list>
+                <value>Jack</value>
+                <value>Tom</value>
+                <value>Marry</value>
+            </list>
+        </property>
+        <!--Map-->
+        <property name="countries">
+            <map>
+                <entry key="CN" value="China" />
+                <entry key="US" value="America" />
+                <entry key="KR" value="Korea" />
+            </map>
+        </property>
+        <!--Properties-->
+        <property name="files">
+            <props>
+                <prop key="first">One</prop>
+                <prop key="second">Two</prop>
+                <prop key="third">Three</prop>
+            </props>
+        </property>
+<!--        <property name="address" ref="address"/>-->
+
+    </bean>
+
+
+    <!--构造方法注入-->
+    <bean class="com.qf.entity.Student" id="student">
+        <constructor-arg name="id" value="12345"/>
+        <constructor-arg name="name" value="tom" />
+        <constructor-arg name="age" value="20" />
+        <constructor-arg name="sex" value="male" />
+    </bean>
+
+ 
+</beans>
