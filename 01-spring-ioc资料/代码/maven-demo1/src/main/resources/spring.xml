@@ -60,7 +60,7 @@
             </props>
         </property>
         <!--ref-->
-        <property name="address" ref="address"/>
+        <!-- <property name="address" ref="address"/> -->
     </bean>
 
     <!--构造方法注入-->
