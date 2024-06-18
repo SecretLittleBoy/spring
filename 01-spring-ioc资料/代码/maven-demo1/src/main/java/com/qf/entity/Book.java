@@ -5,13 +5,8 @@ package com.qf.entity;
  * @技术交流社区： qfjava.cn
  */
 public class Book {
-
     private Long id;
     private String name;
-
-//    private Book() {
-//
-//    }
 
     private static Book book;
 

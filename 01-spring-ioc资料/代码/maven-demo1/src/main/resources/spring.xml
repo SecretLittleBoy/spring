@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean class="com.qf.entity.Product" id="product11" name="product11"/>
+    <bean class="com.qf.entity.Product" id="product11" name="product11" />
 
-    <bean class="com.qf.entity.Product" id="product12" name="product12"/>
-    
-    <alias name="product11" alias="qfproduct"/>
+    <bean class="com.qf.entity.Product" id="product12" name="product12" />
+
+    <alias name="product11" alias="qfproduct" />
 
     <bean class="com.qf.entity.Address" id="address">
-        <property name="position" value="北京市海淀区"/>
-        <property name="zipCode" value="100001"/>
+        <property name="position" value="北京市海淀区" />
+        <property name="zipCode" value="100001" />
     </bean>
 
     <bean class="com.qf.entity.User" id="user" autowire="byType">
-        <property name="id" value="1001"/>
+        <property name="id" value="1001" />
         <property name="password" value="123456" />
         <property name="sex" value="male" />
         <property name="age" value="20" />
@@ -60,18 +60,15 @@
                 <prop key="third">Three</prop>
             </props>
         </property>
-<!--        <property name="address" ref="address"/>-->
-
+        <!-- <property name="address" ref="address"/> -->
     </bean>
-
 
     <!--构造方法注入-->
     <bean class="com.qf.entity.Student" id="student">
-        <constructor-arg name="id" value="12345"/>
+        <constructor-arg name="id" value="12345" />
         <constructor-arg name="name" value="tom" />
         <constructor-arg name="age" value="20" />
         <constructor-arg name="sex" value="male" />
     </bean>
 
- 
 </beans>

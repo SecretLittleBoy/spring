@@ -3,6 +3,9 @@ package com.qf.test;
 import com.qf.entity.Product;
 import com.qf.entity.Student;
 import com.qf.entity.User;
+
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -15,9 +18,13 @@ public class TestProduct {
 
     @Test
     public void test1(){
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
-        Product product = context.getBean("product12", Product.class);
-        System.out.println(product);
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml")) {
+            Product product1 = context.getBean("product12", Product.class);
+            Product product2 = context.getBean("product12", Product.class);
+            assertTrue(product1 == product2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test

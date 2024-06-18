@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
     <!--depends-on-->
     <bean class="com.qf.entity.ClassB" id="classB" depends-on="classA" />
-    <bean class="com.qf.entity.ClassA" id="classA"/>
+    <bean class="com.qf.entity.ClassA" id="classA" />
 
 
     <!--懒加载-->
-    <bean class="com.qf.entity.ClassA" id="classA1" lazy-init="true"/>
+    <bean class="com.qf.entity.ClassA" id="classA1" lazy-init="true" />
 
     <!--单例和多例-->
     <bean class="com.qf.entity.Product" id="product" scope="prototype" />
@@ -19,22 +19,21 @@
     <bean class="com.qf.entity.Book" id="book" factory-method="createInstance" />
 
     <!--非静态工厂方法实例化bean-->
-    <bean class="com.qf.entity.BookFactory" id="bookFactory"/>
+    <bean class="com.qf.entity.BookFactory" id="bookFactory" />
     <bean id="englishBook" factory-bean="bookFactory" factory-method="createEnglishBookInstance" />
     <bean id="javaBook" factory-bean="bookFactory" factory-method="createJavaBookInstance" />
 
     <!--生命周期回调-->
     <bean class="com.qf.entity.Teacher" id="teacher" init-method="afterPropertiesSet" destroy-method="destroy"/>
 
-<!--    <bean class="com.qf.entity.Teacher1" id="teacher1" init-method="init" destroy-method="destroy"/>-->
+    <!-- <bean class="com.qf.entity.Teacher1" id="teacher1" init-method="init" destroy-method="destroy"/> -->
 
     <!--配置第三方bean-->
     <bean class="com.alibaba.druid.pool.DruidDataSource" id="dataSource">
-        <property name="url" value="jdbc:mysql://localhost:3306/my_db"/>
-        <property name="username" value="root"/>
-        <property name="password" value="root"/>
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/my_db" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
     </bean>
-
 
 </beans>
