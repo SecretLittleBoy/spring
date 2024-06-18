@@ -3,23 +3,62 @@ package com.qf.test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
+
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class TestSpring2XML {
 
-    /**
-     * depends on
-     */
     @Test
-    public void test6() {
+    public void testLazyInit() {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml")) {
             Object classA1 = context.getBean("classA1");
             assertNotNull(classA1);
         } catch (Exception e) {
             e.printStackTrace();
             assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testDependsOn() {
+        // Create a stream to hold the output
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        PrintStream newOut = new PrintStream(baos);
+
+        try {
+            // Redirect System.out to the new stream
+            System.setOut(newOut);
+
+            // Load the Spring context
+            try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml")) {
+                Object classB = context.getBean("classB");
+                assertNotNull(classB);
+            }
+
+            System.out.flush();
+
+            // Reset the standard output stream
+            System.setOut(originalOut);
+
+            // Get the captured output
+            String output = baos.toString();
+
+            // Check if the output contains the expected constructor calls
+            assertTrue(output.contains("ClassA Constructor"));
+            assertTrue(output.contains("ClassB Constructor"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        } finally {
+            // Ensure System.out is reset even if an exception occurs
+            System.setOut(originalOut);
         }
     }
 
@@ -110,5 +149,5 @@ public class TestSpring2XML {
         arr[low] = pivot; // 将分区点放置到最终位置
         return low; // 返回分区点的索引
     }
-    
+
 }

@@ -7,6 +7,6 @@ package com.qf.entity;
 public class ClassA {
 
     public ClassA(){
-        System.out.println("ClassA");
+        System.out.println("ClassA Constructor");
     }
 }

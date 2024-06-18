@@ -8,7 +8,6 @@
     <bean class="com.qf.entity.ClassB" id="classB" depends-on="classA" />
     <bean class="com.qf.entity.ClassA" id="classA" />
 
-
     <!--懒加载-->
     <bean class="com.qf.entity.ClassA" id="classA1" lazy-init="true" />
 
