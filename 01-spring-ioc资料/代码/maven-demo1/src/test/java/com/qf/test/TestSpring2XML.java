@@ -1,5 +1,6 @@
 package com.qf.test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -14,12 +15,32 @@ public class TestSpring2XML {
 
     @Test
     public void testLazyInit() {
-        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml")) {
-            Object classA1 = context.getBean("classA1");
-            assertNotNull(classA1);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        PrintStream newOut = new PrintStream(baos);
+
+        try {
+            try (ClassPathXmlApplicationContext context1 = new ClassPathXmlApplicationContext("spring.xml");
+                    ClassPathXmlApplicationContext context2 = new ClassPathXmlApplicationContext("spring-2.xml")) {
+                System.setOut(newOut);
+                Object classA1 = context2.getBean("classA1");
+                assertNotNull(classA1);
+                System.out.flush();
+                String output = baos.toString();
+                assertTrue(output.contains("ClassA Constructor"));
+
+                baos.reset();
+                Object Address = context1.getBean("address");
+                assertNotNull(Address);
+                System.out.flush();
+                output = baos.toString();
+                assertFalse(output.contains("Address Constructor"));
+            }
         } catch (Exception e) {
             e.printStackTrace();
             assertTrue(false);
+        } finally {
+            System.setOut(originalOut);
         }
     }
 
@@ -41,9 +62,6 @@ public class TestSpring2XML {
             }
 
             System.out.flush();
-
-            // Reset the standard output stream
-            System.setOut(originalOut);
 
             // Get the captured output
             String output = baos.toString();

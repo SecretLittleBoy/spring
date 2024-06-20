@@ -8,6 +8,10 @@ public class Address {
     private String position;
     private Long zipCode;
 
+    public Address() {
+        System.out.println("Address Constructor");
+    }
+
     @Override
     public String toString() {
         return "Address{" +
