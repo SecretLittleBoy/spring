@@ -12,6 +12,7 @@ import static org.junit.Assert.assertTrue;
 import java.sql.Date;
 
 import org.junit.Test;
+import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -76,9 +77,11 @@ public class TestSpringXML {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml")) {
             Product product = context.getBean(Product.class);
             assertTrue(false); // This line will not be executed
+        } catch (NoUniqueBeanDefinitionException e) {
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-            assertTrue(true);
+            assertTrue(false);
         }
     }
 

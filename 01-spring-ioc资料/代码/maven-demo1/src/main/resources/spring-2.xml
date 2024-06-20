@@ -3,7 +3,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-
     <!--depends-on-->
     <bean class="com.qf.entity.ClassB" id="classB" depends-on="classA" />
     <bean class="com.qf.entity.ClassA" id="classA" />
