@@ -7,7 +7,7 @@ package com.qf.entity;
 public class EnglishBook extends Book {
     String address;
     public EnglishBook() {
-        super(1L, "English Book");
+        super(null, null);
         this.address = "Beijing";
     }
     // Example method with a clearer purpose

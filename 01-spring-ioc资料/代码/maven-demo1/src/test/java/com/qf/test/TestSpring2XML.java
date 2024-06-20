@@ -119,10 +119,14 @@ public class TestSpring2XML {
      */
     @Test
     public void test10() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml");
-        Object teacher = context.getBean("teacher");
-        System.out.println(teacher);
-        context.close();
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml")) {
+            Object teacher = context.getBean("teacher");
+            System.out.println(teacher);
+            context.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
     }
 
     /**
@@ -130,8 +134,12 @@ public class TestSpring2XML {
      */
     @Test
     public void test11() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml");
-        Object dataSource = context.getBean("dataSource");
-        System.out.println(dataSource);
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml")) {
+            Object dataSource = context.getBean("dataSource");
+            System.out.println(dataSource);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
     }
 }
