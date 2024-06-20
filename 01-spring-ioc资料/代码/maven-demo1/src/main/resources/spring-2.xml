@@ -22,9 +22,9 @@
     <bean id="javaBook" factory-bean="bookFactory" factory-method="createJavaBookInstance" />
 
     <!--生命周期回调-->
-    <bean class="com.qf.entity.Teacher" id="teacher" init-method="afterPropertiesSet" destroy-method="destroy"/>
+    <bean class="com.qf.entity.Teacher" id="teacher"/>
 
-    <!-- <bean class="com.qf.entity.Teacher1" id="teacher1" init-method="init" destroy-method="destroy"/> -->
+    <bean class="com.qf.entity.Teacher" id="teacher1" init-method="afterPropertiesSet1" destroy-method="destroy1"/>
 
     <!--配置第三方bean-->
     <bean class="com.alibaba.druid.pool.DruidDataSource" id="dataSource">

@@ -1,5 +1,6 @@
 package com.qf.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -12,15 +13,15 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class TestSpring2XML {
+import com.alibaba.druid.pool.DruidDataSource;
 
+public class TestSpring2XML {
     @Test
     public void testLazyInit() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
-        PrintStream newOut = new PrintStream(baos);
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml")) {
-            System.setOut(newOut);
+            System.setOut(new PrintStream(baos));
             Object classA = context.getBean("classA"); // classA is not lazy-init
             assertNotNull(classA);
             System.out.flush();
@@ -118,15 +119,48 @@ public class TestSpring2XML {
      * 生命周期回调
      */
     @Test
-    public void test10() {
+    public void testCallback() {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(baos));
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml")) {
             Object teacher = context.getBean("teacher");
-            System.out.println(teacher);
-            context.close();
+            assertNotNull(teacher);
+            System.out.flush();
+            assertTrue(baos.toString().contains("Teacher afterPropertiesSet()"));
+            baos.reset();
         } catch (Exception e) {
             e.printStackTrace();
             assertTrue(false);
         }
+        System.out.flush();
+        String output = baos.toString();
+        assertTrue(output.contains("Teacher destroy()"));
+        System.setOut(originalOut);
+    }
+
+    /**
+     * 生命周期回调2
+     */
+    @Test
+    public void testCallback2() {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(baos));
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml")) {
+            Object teacher1 = context.getBean("teacher1");
+            assertNotNull(teacher1);
+            System.out.flush();
+            assertTrue(baos.toString().contains("teacher init..."));
+            baos.reset();
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
+        System.out.flush();
+        String output = baos.toString();
+        assertTrue(output.contains("teacher destroy..."));
+        System.setOut(originalOut);
     }
 
     /**
@@ -135,8 +169,10 @@ public class TestSpring2XML {
     @Test
     public void test11() {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml")) {
-            Object dataSource = context.getBean("dataSource");
-            System.out.println(dataSource);
+            DruidDataSource dataSource = context.getBean("dataSource", DruidDataSource.class);
+            assertNotNull(dataSource);
+            assertEquals(dataSource.getUsername(), "root");
+            assertEquals(dataSource.getPassword(), "root");
         } catch (Exception e) {
             e.printStackTrace();
             assertTrue(false);

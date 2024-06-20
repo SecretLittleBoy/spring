@@ -10,20 +10,19 @@ import org.springframework.beans.factory.InitializingBean;
 public class Teacher implements InitializingBean, DisposableBean {
     @Override
     public void destroy() throws Exception {
-        System.out.println("Teacher即将销毁");
-
+        System.out.println("Teacher destroy()");
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.println("Teacher实例化了");
+        System.out.println("Teacher afterPropertiesSet()");
     }
 
-    public void init(){
+    public void afterPropertiesSet1(){
         System.out.println("teacher init...");
     }
 
     public void destroy1(){
-        System.out.println("teacher destroy1...");
+        System.out.println("teacher destroy...");
     }
 }
