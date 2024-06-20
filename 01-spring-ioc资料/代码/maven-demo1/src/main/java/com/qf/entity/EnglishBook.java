@@ -6,6 +6,10 @@ package com.qf.entity;
  */
 public class EnglishBook extends Book {
     String address;
+    public EnglishBook() {
+        super(1L, "English Book");
+        this.address = "Beijing";
+    }
     // Example method with a clearer purpose
     void calculateSum() {
         int number1 = 10;

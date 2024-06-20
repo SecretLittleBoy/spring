@@ -8,12 +8,17 @@ public class Book {
     private Long id;
     private String name;
 
-    private static Book book;
+    private Book() {
+    }
 
-    public static Book createInstance(){
-        book = new Book();
-        book.setId(1001L);
-        book.setName("千锋图书");
+    public Book(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    private static Book book = new Book();
+
+    public static Book createInstance() {
         return book;
     }
 

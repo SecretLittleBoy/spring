@@ -6,7 +6,10 @@ package com.qf.entity;
  */
 public class JavaBook extends Book{
     String author;
-
+    public JavaBook() {
+        super(2L, "Java Book");
+        this.author = "Sol";
+    }
     void testCode1(){
         int a = 10;
         int b = 20;

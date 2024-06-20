@@ -1,6 +1,7 @@
 package com.qf.test;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -18,24 +19,20 @@ public class TestSpring2XML {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         PrintStream newOut = new PrintStream(baos);
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml")) {
+            System.setOut(newOut);
+            Object classA = context.getBean("classA"); // classA is not lazy-init
+            assertNotNull(classA);
+            System.out.flush();
+            String output = baos.toString();
+            assertFalse(output.contains("ClassA Constructor"));
 
-        try {
-            try (ClassPathXmlApplicationContext context1 = new ClassPathXmlApplicationContext("spring.xml");
-                    ClassPathXmlApplicationContext context2 = new ClassPathXmlApplicationContext("spring-2.xml")) {
-                System.setOut(newOut);
-                Object classA1 = context2.getBean("classA1");
-                assertNotNull(classA1);
-                System.out.flush();
-                String output = baos.toString();
-                assertTrue(output.contains("ClassA Constructor"));
-
-                baos.reset();
-                Object Address = context1.getBean("address");
-                assertNotNull(Address);
-                System.out.flush();
-                output = baos.toString();
-                assertFalse(output.contains("Address Constructor"));
-            }
+            baos.reset();
+            Object classA1 = context.getBean("classA1"); // ClassA1 is lazy-init
+            assertNotNull(classA1);
+            System.out.flush();
+            output = baos.toString();
+            assertTrue(output.contains("ClassA Constructor"));
         } catch (Exception e) {
             e.printStackTrace();
             assertTrue(false);
@@ -46,70 +43,75 @@ public class TestSpring2XML {
 
     @Test
     public void testDependsOn() {
-        // Create a stream to hold the output
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();// Create a stream to hold the output
         PrintStream originalOut = System.out;
-        PrintStream newOut = new PrintStream(baos);
-
-        try {
-            // Redirect System.out to the new stream
-            System.setOut(newOut);
-
-            // Load the Spring context
-            try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml")) {
-                Object classB = context.getBean("classB");
-                assertNotNull(classB);
-            }
+        System.setOut(new PrintStream(baos));// Redirect System.out to the new stream
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml")) {
+            Object classB = context.getBean("classB");
+            assertNotNull(classB);
 
             System.out.flush();
 
-            // Get the captured output
-            String output = baos.toString();
+            String output = baos.toString();// Get the captured output
 
-            // Check if the output contains the expected constructor calls
             assertTrue(output.contains("ClassA Constructor"));
             assertTrue(output.contains("ClassB Constructor"));
-
+            assertTrue(output.indexOf("ClassA Constructor") < output.indexOf("ClassB Constructor"));
         } catch (Exception e) {
             e.printStackTrace();
             assertTrue(false);
         } finally {
-            // Ensure System.out is reset even if an exception occurs
             System.setOut(originalOut);
         }
     }
 
     /**
-     * 单例
+     * 单例,多例
      */
     @Test
-    public void test7() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml");
-        Object product = context.getBean("product");
-        Object product1 = context.getBean("product");
-
+    public void testPrototype() {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml")) {
+            Object product1 = context.getBean("product"); // product is prototype scope: 多例
+            Object product2 = context.getBean("product");
+            assertNotNull(product1);
+            assertNotNull(product2);
+            assertFalse(product1 == product2);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
     }
 
     /**
      * 静态工厂方法实例化
      */
     @Test
-    public void test8() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml");
-        Object book = context.getBean("book");
-        System.out.println(book);
+    public void testStaticFactory() {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml")) {
+            Object book = context.getBean("book");
+            assertNotNull(book);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
     }
 
     /**
      * 非静态工厂方法实例化bean
      */
     @Test
-    public void test9() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml");
-        Object englishBook = context.getBean("englishBook");
-        System.out.println(englishBook);
-        Object javaBook = context.getBean("javaBook");
-        System.out.println(javaBook);
+    public void testFactory() {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml")) {
+            Object englishBook = context.getBean("englishBook");
+            assertNotNull(englishBook);
+            Object javaBook = context.getBean("javaBook");
+            assertNotNull(javaBook);
+            assertTrue(englishBook != javaBook);
+            assertNotEquals(englishBook, javaBook);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
     }
 
     /**
