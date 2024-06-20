@@ -14,27 +14,25 @@ import javax.annotation.Resource;
 
 /**
  * @Author: 索尔 VX：214490523
- * @技术交流社区： qfjava.cn
+ *          @技术交流社区： qfjava.cn
  */
 @Controller
 public class StudentController {
 
-//    @Autowired
-//    @Qualifier("englishStudentServiceImpl")
+    // @Autowired
+    // @Qualifier("englishStudentServiceImpl")
     @Resource(name = "studentServiceImpl")
     private StudentService studentService;
 
     @Autowired
     private BaseService<PythonStudent> baseService;
 
-    public void showStudent(){
+    public void showStudent() {
         baseService.getStudent();
     }
 
-
-    public Student findStudent(Long id){
+    public Student findStudent(Long id) {
         return studentService.findStudent(id);
     }
-
 
 }

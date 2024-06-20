@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @Author: 索尔 VX：214490523
- * @技术交流社区： qfjava.cn
+ *          @技术交流社区： qfjava.cn
  */
 @Component
 @Lazy
@@ -20,17 +20,17 @@ public class Worker {
 
     private Address address;
 
-//    @Value("${worker.name}")
+    // @Value("${worker.name}")
     @Value("#{user.name}")
     private String name;
 
-    //    @Autowired
+    // @Autowired
     public Worker(Address address) {
         this.address = address;
     }
 
     @Autowired
-    public void show(Address address){
+    public void show(Address address) {
         System.out.println("address");
     }
 
