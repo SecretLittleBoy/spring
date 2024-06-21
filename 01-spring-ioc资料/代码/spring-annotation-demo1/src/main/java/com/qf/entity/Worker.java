@@ -20,13 +20,17 @@ public class Worker {
 
     private Address address;
 
-    // @Value("${worker.name}")
+    //@Value("${user.name}")
     @Value("#{user.name}")
     private String name;
 
     // @Autowired //默认Autowired，可以省略
     public Worker(Address address) {
         this.address = address;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Address getAddress() {

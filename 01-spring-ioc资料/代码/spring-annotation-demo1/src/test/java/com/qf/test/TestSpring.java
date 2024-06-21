@@ -4,7 +4,6 @@ import com.qf.controller.StudentController;
 import com.qf.entity.User;
 import com.qf.entity.Worker;
 import com.qf.service.StudentService;
-import com.qf.service.impl.StudentServiceImpl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -16,6 +15,7 @@ import java.io.PrintStream;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 
 /**
  * @Author: 索尔 VX：214490523
@@ -30,7 +30,9 @@ public class TestSpring {
     public void testService() {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml")) {
             StudentService studentService = context.getBean("StudentService", StudentService.class);
-            System.out.println(studentService.findStudent(1L));
+            assertTrue(false); // will not reach this line
+        } catch (NoSuchBeanDefinitionException e) {
+            e.printStackTrace();
         }
     }
 
@@ -86,7 +88,7 @@ public class TestSpring {
      * 测试四大注解+Autowired注解
      */
     @Test
-    public void test5() {
+    public void testAutowired3() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml")) {
@@ -99,6 +101,24 @@ public class TestSpring {
             assertTrue(output.contains("PythonStudent"));
         } finally {
             System.setOut(originalOut);
+        }
+    }
+
+    @Test
+    public void testValue1() {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml")) {
+            User user = context.getBean("user", User.class);
+            assertNotNull(user);
+            assertEquals(user.getName(), "xiaoli");
+        }
+    }
+
+    @Test
+    public void testValue2() {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml")) {
+            Worker worker = context.getBean("worker", Worker.class);
+            assertNotNull(worker);
+            assertEquals(worker.getName(), "xiaoli");
         }
     }
 

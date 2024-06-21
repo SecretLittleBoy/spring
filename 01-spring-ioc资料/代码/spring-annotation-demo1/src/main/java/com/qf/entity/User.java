@@ -11,7 +11,7 @@ import javax.xml.ws.RequestWrapper;
  */
 public class User {
 
-    @Value("xiaoqian")
+    @Value("${User.name}")
     private String name;
     private int age;
 
