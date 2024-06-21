@@ -5,12 +5,11 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
                         http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-
     <!--    <bean class="com.qf.dao.impl.StudentDaoImpl" id="studentDao"/>-->
-
     <!--    <bean class="com.qf.service.impl.StudentServiceImpl" id="studentService">-->
     <!--        <property name="studentDao" ref="studentDao"/>-->
     <!--    </bean>-->
+
     <context:component-scan base-package="com.qf">
     <!-- <context:exclude-filter expression="com.qf.service.impl.StudentServiceImpl" type="assignable"/>-->
     </context:component-scan>

@@ -2,7 +2,6 @@ package com.qf.dao.impl;
 
 import com.qf.dao.StudentDao;
 import com.qf.entity.Student;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 /**

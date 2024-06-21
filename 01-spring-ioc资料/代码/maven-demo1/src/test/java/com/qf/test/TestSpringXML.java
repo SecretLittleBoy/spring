@@ -28,8 +28,6 @@ public class TestSpringXML {
             Product product1 = context.getBean("productName1", Product.class);
             Product product2 = context.getBean("productName1", Product.class);
             assertTrue(product1 == product2);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -39,9 +37,6 @@ public class TestSpringXML {
             Product product1 = context.getBean("productName1", Product.class);
             Product product2 = context.getBean("productName2", Product.class);
             assertTrue(product1 != product2);
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         }
     }
 
@@ -51,9 +46,6 @@ public class TestSpringXML {
             Product product1 = context.getBean("productName1", Product.class);
             Product product2 = context.getBean("aliasForProductName1", Product.class);
             assertTrue(product1 == product2);
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         }
     }
 
@@ -65,9 +57,6 @@ public class TestSpringXML {
             assertNotNull(productById);
             assertNotNull(productByName);
             assertTrue(productById == productByName);
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         }
     }
 
@@ -79,9 +68,6 @@ public class TestSpringXML {
             assertTrue(false); // This line will not be executed
         } catch (NoUniqueBeanDefinitionException e) {
             e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         }
     }
 
@@ -92,9 +78,6 @@ public class TestSpringXML {
             assertNotNull(address);
             assertEquals(address.getPosition(), "北京市海淀区");
             assertEquals(address.getZipCode(), Long.valueOf(100001));
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         }
     }
 
@@ -136,9 +119,6 @@ public class TestSpringXML {
 
             assertNotNull(user.getAddress());
             assertTrue(user.getAddress() == context.getBean("address", Address.class));
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         }
     }
 
@@ -151,9 +131,6 @@ public class TestSpringXML {
             assertEquals(student.getName(), "tom");
             assertEquals(student.getAge(), Integer.valueOf(20));
             assertEquals(student.getSex(), "male");
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         }
     }
 }

@@ -34,9 +34,6 @@ public class TestSpring2XML {
             System.out.flush();
             output = baos.toString();
             assertTrue(output.contains("ClassA Constructor"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         } finally {
             System.setOut(originalOut);
         }
@@ -58,9 +55,6 @@ public class TestSpring2XML {
             assertTrue(output.contains("ClassA Constructor"));
             assertTrue(output.contains("ClassB Constructor"));
             assertTrue(output.indexOf("ClassA Constructor") < output.indexOf("ClassB Constructor"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         } finally {
             System.setOut(originalOut);
         }
@@ -77,9 +71,6 @@ public class TestSpring2XML {
             assertNotNull(product1);
             assertNotNull(product2);
             assertFalse(product1 == product2);
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         }
     }
 
@@ -91,9 +82,6 @@ public class TestSpring2XML {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-2.xml")) {
             Object book = context.getBean("book");
             assertNotNull(book);
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         }
     }
 
@@ -109,9 +97,6 @@ public class TestSpring2XML {
             assertNotNull(javaBook);
             assertTrue(englishBook != javaBook);
             assertNotEquals(englishBook, javaBook);
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         }
     }
 
@@ -129,9 +114,6 @@ public class TestSpring2XML {
             System.out.flush();
             assertTrue(baos.toString().contains("Teacher afterPropertiesSet()"));
             baos.reset();
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         }
         System.out.flush();
         String output = baos.toString();
@@ -153,9 +135,6 @@ public class TestSpring2XML {
             System.out.flush();
             assertTrue(baos.toString().contains("teacher init..."));
             baos.reset();
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         }
         System.out.flush();
         String output = baos.toString();
@@ -173,9 +152,6 @@ public class TestSpring2XML {
             assertNotNull(dataSource);
             assertEquals(dataSource.getUsername(), "root");
             assertEquals(dataSource.getPassword(), "root");
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         }
     }
 }

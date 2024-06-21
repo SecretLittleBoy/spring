@@ -6,6 +6,8 @@ import com.qf.entity.Worker;
 import com.qf.service.StudentService;
 import com.qf.service.impl.StudentServiceImpl;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -24,11 +26,8 @@ public class TestSpring {
     @Test
     public void test1() {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml")) {
-            StudentService studentService = context.getBean("studentService", StudentService.class);
+            StudentService studentService = context.getBean("StudentService", StudentService.class);
             System.out.println(studentService.findStudent(1L));
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         }
     }
 
@@ -39,10 +38,10 @@ public class TestSpring {
     public void test2() {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml")) {
             StudentController studentController = context.getBean("studentController", StudentController.class);
-            System.out.println(studentController.findStudent(1L));
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
+            assertNotNull(studentController);
+            Long randomId = (long) (Math.random() * 100);
+            assertNotNull(studentController.findStudent(randomId));
+            assertEquals(studentController.findStudent(randomId).getId(), randomId);
         }
     }
 
@@ -54,9 +53,6 @@ public class TestSpring {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml")) {
             User user = context.getBean("user", User.class);
             System.out.println(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         }
     }
 
@@ -68,9 +64,6 @@ public class TestSpring {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml")) {
             Worker worker = context.getBean("worker", Worker.class);
             System.out.println(worker);
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         }
     }
 
@@ -82,9 +75,6 @@ public class TestSpring {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml")) {
             StudentController studentController = context.getBean("studentController", StudentController.class);
             studentController.showStudent();
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         }
     }
 
