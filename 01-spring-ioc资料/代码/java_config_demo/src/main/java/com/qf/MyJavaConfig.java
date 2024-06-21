@@ -34,7 +34,6 @@ public class MyJavaConfig {
     @Value("${db.driverClassName}")
     private String driverClassName;
 
-
     /**
      * 注册第三方的bean
      * 1.@Bean注解是打在方法上的
@@ -52,11 +51,5 @@ public class MyJavaConfig {
         dataSource.setDriverClassName(driverClassName);
         return dataSource;
     }
-
-
-
-
-
-
 
 }
