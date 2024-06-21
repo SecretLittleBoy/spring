@@ -24,14 +24,19 @@ public class Worker {
     @Value("#{user.name}")
     private String name;
 
-    // @Autowired
+    // @Autowired //默认Autowired，可以省略
     public Worker(Address address) {
         this.address = address;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
     @Autowired
     public void show(Address address) {
-        System.out.println("address");
+        System.out.println("show address:");
+        System.out.println(address);
     }
 
     @Override
