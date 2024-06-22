@@ -6,6 +6,7 @@ import com.qf.entity.Teacher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
 
 @Configuration
 @Import({ EnglishTeacher.class, MyImportSelector.class, MyImportBeanDefinitionRegistrar.class })
@@ -22,6 +23,7 @@ public class OtherJavaConfig {
     }
 
     @Bean
+    @Primary
     public Student student() {
         Student student = new Student(teacher());
         return student;
@@ -32,5 +34,4 @@ public class OtherJavaConfig {
         Student student = new Student(teacher);
         return student;
     }
-
 }

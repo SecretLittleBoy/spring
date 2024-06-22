@@ -1,8 +1,6 @@
 package com.qf;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.qf.entity.Student;
-import com.qf.entity.Teacher;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 
@@ -10,9 +8,12 @@ import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan(basePackages = "com.qf")
-// 关联配置文件
-@PropertySource("classpath:db.properties")
-// @Import注解作用：1.引入其他的配置类，一个或多个 2.直接自动注册一个bean
+@PropertySource("classpath:db.properties") // 关联配置文件
+/**
+ * @Import注解作用：
+ * 1.引入一个或多个其他的配置类 √
+ * 2.直接自动注册一个bean
+ */
 @Import(OtherJavaConfig.class)
 public class MyJavaConfig {
     /*

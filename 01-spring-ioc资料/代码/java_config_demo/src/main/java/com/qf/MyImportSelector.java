@@ -2,7 +2,6 @@ package com.qf;
 
 import org.springframework.context.annotation.ImportSelector;
 import org.springframework.core.type.AnnotationMetadata;
-import org.springframework.stereotype.Component;
 
 public class MyImportSelector implements ImportSelector {
     @Override

@@ -1,81 +1,88 @@
 package com.qf.test;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.qf.MyJavaConfig;
 import com.qf.entity.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-/**
- * @Author: 索尔 VX：214490523
- *          @技术交流社区： qfjava.cn
- */
 public class TestJavaConfig {
 
-    ApplicationContext context;
+    AnnotationConfigApplicationContext context;
 
     @Before
     public void before() {
         context = new AnnotationConfigApplicationContext(MyJavaConfig.class);
+    }
 
+    @After
+    public void after() {
+        context.close();
     }
 
     @Test
-    public void test1() {
-        ApplicationContext context = new AnnotationConfigApplicationContext(MyJavaConfig.class);
-        Object dataSource = context.getBean("dataSource");
-        System.out.println(dataSource);
-    }
+    public void testDataSource() {
+        DruidDataSource lastDataSource = null;
+        for (String beanName : new String[] { "a", "b", "c", "dataSource" }) {
+            DruidDataSource dataSource = (DruidDataSource) context.getBean(beanName);
+            assertNotNull(dataSource);
+            assertEquals(dataSource.getName(), "root");
+            assertEquals(dataSource.getPassword(), "root");
 
-    /**
-     * 测试@Scope的单例和多例
-     */
-    @Test
-    public void test2() {
-        Object dataSource1 = context.getBean("a");
-        Object dataSource2 = context.getBean("b");
-        Object dataSource3 = context.getBean("c");
-        System.out.println(dataSource1.hashCode());
-        System.out.println(dataSource2.hashCode());
-        System.out.println(dataSource3.hashCode());
-
+            // test @Scope("prototype")
+            assertTrue(dataSource != lastDataSource);
+            lastDataSource = dataSource;
+        }
     }
 
     /**
      * 测试使用bean注解注册内部的类的对象
      */
     @Test
-    public void test3() {
+    public void testTeacher() {
         Teacher teacher = context.getBean(Teacher.class);
-        System.out.println(teacher);
+        assertNotNull(teacher);
+        assertEquals(teacher.getName(), "Thor");
+        assertEquals(teacher.getMajor(), "Java");
+
+        Teacher teacher1 = context.getBean(Teacher.class);
+        assertTrue(teacher == teacher1);
     }
 
     /**
      * 注入bean时的内部依赖
      */
     @Test
-    public void test4() {
-        Student student = context.getBean(Student.class);
-        System.out.println(student.getTeacher().getName());
-    }
+    public void testStudent() {
+        Student[] students = new Student[] { context.getBean(Student.class),
+                context.getBean("myStudent", Student.class) };
+        assertTrue(students[0] != students[1]);
+        for (Student student : students) {
+            assertNotNull(student);
+            assertEquals(student.getTeacher().getName(), "Thor");
+            assertEquals(student.getTeacher().getMajor(), "Java");
 
-    /**
-     * 注入bean时的内部依赖,通过自动装配的方式
-     */
-    @Test
-    public void test5() {
-        Student myStudent = context.getBean("myStudent", Student.class);
-        System.out.println(myStudent.getTeacher().getName());
+            Teacher teacher = context.getBean(Teacher.class);
+            assertTrue(student.getTeacher() == teacher);
+        }
     }
 
     /**
      * 通过@Import直接注册一个bean
      */
     @Test
-    public void test6() {
+    public void testImport() {
         EnglishTeacher englishTeacher = context.getBean(EnglishTeacher.class);
-        System.out.println(englishTeacher.getMajor());
+        assertNotNull(englishTeacher);
+        assertEquals(englishTeacher.getName(), "Thor");
+        assertEquals(englishTeacher.getMajor(), "English");
     }
 
     /**
