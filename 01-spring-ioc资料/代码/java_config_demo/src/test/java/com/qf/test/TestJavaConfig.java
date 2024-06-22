@@ -3,14 +3,20 @@ package com.qf.test;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.qf.MyJavaConfig;
 import com.qf.entity.*;
+import com.qf.controller.StudentController;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class TestJavaConfig {
@@ -85,16 +91,44 @@ public class TestJavaConfig {
         assertEquals(englishTeacher.getMajor(), "English");
     }
 
+    @Test
+    public void testController() {
+        StudentController studentController = context.getBean(StudentController.class);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(baos));
+        try {
+            studentController.run();
+            String output = baos.toString();
+            assertTrue(output.contains("StudentController..."));
+            assertTrue(output.contains("teacher: "));
+            assertFalse(output.contains("null"));
+        } finally {
+            System.setOut(originalOut);
+        }
+    }
+
     /**
      * ImportSelector接口实现一次性自动注册多个bean
      */
     @Test
-    public void test7() {
-        // JavaStudent javaStudent = context.getBean(JavaStudent.class);
-        JavaStudent javaStudent = context.getBean("javaStudent", JavaStudent.class);
+    public void testImportSelector() {
+        try {
+            // JavaStudent是ImportSelector接口注册，没有@Component注解
+            // 所以无法通过context.getBean("javaStudent", JavaStudent.class)获取
+            JavaStudent errorObject = context.getBean("javaStudent", JavaStudent.class);
+            assertTrue(false);
+        } catch (NoSuchBeanDefinitionException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
+
+        JavaStudent javaStudent = context.getBean(JavaStudent.class);
         JavaTeacher javaTeacher = context.getBean(JavaTeacher.class);
-        System.out.println(javaStudent.getName());
-        System.out.println(javaTeacher.getName());
+        assertNotNull(javaStudent);
+        assertNotNull(javaTeacher);
     }
 
     /**

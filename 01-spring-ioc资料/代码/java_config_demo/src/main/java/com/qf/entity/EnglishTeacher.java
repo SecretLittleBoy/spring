@@ -1,7 +1,6 @@
 package com.qf.entity;
 
 public class EnglishTeacher {
-
     private String name = "Thor";
     private String major = "English";
 
