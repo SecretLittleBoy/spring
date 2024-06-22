@@ -8,22 +8,15 @@ import org.springframework.context.annotation.*;
 
 import javax.sql.DataSource;
 
-/**
- * @Author: 索尔 VX：214490523
- * @技术交流社区： qfjava.cn
- */
 @Configuration
 @ComponentScan(basePackages = "com.qf")
-//关联配置文件
+// 关联配置文件
 @PropertySource("classpath:db.properties")
-/*
-    @Import注解作用：1.引入其他的配置类，一个或多个 2.直接自动注册一个bean
- */
+// @Import注解作用：1.引入其他的配置类，一个或多个 2.直接自动注册一个bean
 @Import(OtherJavaConfig.class)
 public class MyJavaConfig {
-
     /*
-    从配置文件中获取值
+     * 从配置文件中获取值
      */
     @Value("${db.username}")
     private String username;
@@ -41,9 +34,9 @@ public class MyJavaConfig {
      * 3.方法名就是这个bean的Id
      * 4.参数列表，可以让Spring容器进行自动装配
      */
-    @Bean(name = {"a","b","c","dataSource"})
+    @Bean(name = { "a", "b", "c", "dataSource" })
     @Scope("prototype")
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setName(username);
         dataSource.setPassword(password);

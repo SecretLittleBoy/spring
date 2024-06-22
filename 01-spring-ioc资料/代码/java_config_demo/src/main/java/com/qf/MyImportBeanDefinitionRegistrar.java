@@ -8,12 +8,10 @@ import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
 
 /**
- * @Author: 索尔 VX：214490523
- * @技术交流社区： qfjava.cn
  * SpringIoC实现Bean的注册：
  * 1.xml的方式
  * 2.xml+@Component @Controller @Service @Repository
- * 3.@Configuration+@Bean  @Import ImportSelector\
+ * 3.@Configuration+@Bean @Import ImportSelector\
  * SpringIoC如何实现自动装配
  */
 public class MyImportBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar {
