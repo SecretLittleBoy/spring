@@ -19,6 +19,5 @@ public class HomeProxy2 implements IHomeRent {
         this.homeOwnerPlus.rent();
         System.out.println("中介负责房屋维修");
         System.out.println("中介负责房屋转租");
-
     }
 }
