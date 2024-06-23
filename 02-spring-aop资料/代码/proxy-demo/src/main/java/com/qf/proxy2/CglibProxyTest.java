@@ -3,7 +3,6 @@ package com.qf.proxy2;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.InvocationHandler;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -26,14 +25,13 @@ public class CglibProxyTest {
                 try {
                     System.out.println("start....");
                     Object result = method.invoke(mayDay, objects);
-                    // System.out.println("end....");
+                    System.out.println("end....");
                     return result;
                 } catch (Exception e) {
-                    // System.out.println("throw exception...");
+                    System.out.println("throw exception...");
                     throw new RuntimeException(e);
                 } finally {
-                    // System.out.println("finally....");
-                    return null;
+                    System.out.println("finally....");
                 }
             }
         });

@@ -19,7 +19,7 @@ public class JdkProxyTest {
                     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                         System.out.println("发布房屋信息");
                         System.out.println("带租客看房");
-                        Object result = method.invoke(new HomeOwnerPlus());
+                        Object result = method.invoke(new HomeOwnerPlus(), args);
                         System.out.println("维修");
                         System.out.println("转租");
                         return result;
