@@ -21,7 +21,10 @@ public class CglibProxyTest {
         // 设置回调函数
         enhancer.setCallback(new InvocationHandler() {
             @Override
-            public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
+            public Object invoke(Object proxy, Method method, Object[] objects) throws Throwable {
+                System.out.println(proxy.getClass().getName());
+                // System.out.println(proxy); // this line will call proxy.toString(), cause
+                // recursive call, and finally stack overflow
                 try {
                     System.out.println("start....");
                     Object result = method.invoke(mayDay, objects);
