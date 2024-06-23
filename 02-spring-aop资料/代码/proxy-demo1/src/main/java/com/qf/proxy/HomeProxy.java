@@ -2,8 +2,9 @@ package com.qf.proxy;
 
 /**
  * 中介
+ * 
  * @Author: 索尔 VX：214490523
- * @技术交流社区： qfjava.cn
+ *          @技术交流社区： qfjava.cn
  */
 public class HomeProxy implements IHomeRent {
 
@@ -12,7 +13,6 @@ public class HomeProxy implements IHomeRent {
     public HomeProxy(HomeOwnerPlus homeOwner) {
         this.homeOwner = homeOwner;
     }
-
 
     @Override
     public void rent() {

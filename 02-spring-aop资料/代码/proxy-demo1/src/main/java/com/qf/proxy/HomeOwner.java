@@ -2,10 +2,11 @@ package com.qf.proxy;
 
 /**
  * 房东
+ * 
  * @Author: 索尔 VX：214490523
- * @技术交流社区： qfjava.cn
+ *          @技术交流社区： qfjava.cn
  */
-public class HomeOwner implements IHomeRent{
+public class HomeOwner implements IHomeRent {
 
     /**
      * 房屋出租

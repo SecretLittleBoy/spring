@@ -6,14 +6,14 @@ import java.lang.reflect.Proxy;
 
 /**
  * @Author: 索尔 VX：214490523
- * @技术交流社区： qfjava.cn
+ *          @技术交流社区： qfjava.cn
  */
 public class JdkProxyTest {
 
     public static void main(String[] args) {
         IHomeRent homeRent = (IHomeRent) Proxy.newProxyInstance(
                 HomeOwnerPlus.class.getClassLoader(),
-                new Class[]{IHomeRent.class},
+                new Class[] { IHomeRent.class }, // 或 HomeOwnerPlus.class.getInterfaces(),
                 new InvocationHandler() {
                     @Override
                     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
@@ -24,12 +24,9 @@ public class JdkProxyTest {
                         System.out.println("转租");
                         return result;
                     }
-                }
-
-        );
+                });
 
         homeRent.rent();
-
     }
 
 }
