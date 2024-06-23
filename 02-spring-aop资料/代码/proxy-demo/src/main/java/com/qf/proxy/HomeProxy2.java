@@ -2,9 +2,9 @@ package com.qf.proxy;
 
 /**
  * @Author: 索尔 VX：214490523
- * @技术交流社区： qfjava.cn
+ *          @技术交流社区： qfjava.cn
  */
-public class HomeProxy2 implements IHomeRent{
+public class HomeProxy2 implements IHomeRent {
 
     private HomeOwnerPlus homeOwnerPlus;
 
