@@ -19,6 +19,13 @@ import org.junit.Test;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+/**
+ * SpringIoC实现Bean的注册的方式：
+ * 1.xml
+ * 2.xml+@Component @Controller @Service @Repository
+ * 3.@Configuration+@Bean @Import ImportSelector
+ */
+
 public class TestJavaConfig {
 
     AnnotationConfigApplicationContext context;
@@ -116,7 +123,7 @@ public class TestJavaConfig {
         try {
             // JavaStudent是ImportSelector接口注册，没有@Component注解
             // 所以无法通过context.getBean("javaStudent", JavaStudent.class)获取
-            JavaStudent errorObject = context.getBean("javaStudent", JavaStudent.class);
+            context.getBean("javaStudent", JavaStudent.class);
             assertTrue(false);
         } catch (NoSuchBeanDefinitionException e) {
             e.printStackTrace();
@@ -135,9 +142,10 @@ public class TestJavaConfig {
      * 测试ImportBeanDefinitionRegistrar
      */
     @Test
-    public void test8() {
+    public void testImportBeanDefinitionRegistrar() {
         MathTeacher mathTeacher = context.getBean(MathTeacher.class);
-        System.out.println(mathTeacher.getName());
+        assertNotNull(mathTeacher);
+        assertEquals(mathTeacher.getName(), "MathTeacher");
     }
 
 }

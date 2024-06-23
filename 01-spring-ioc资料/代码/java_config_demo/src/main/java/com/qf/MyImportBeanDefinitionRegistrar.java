@@ -7,13 +7,6 @@ import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
 
-/**
- * SpringIoC实现Bean的注册：
- * 1.xml的方式
- * 2.xml+@Component @Controller @Service @Repository
- * 3.@Configuration+@Bean @Import ImportSelector\
- * SpringIoC如何实现自动装配
- */
 public class MyImportBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar {
 
     @Override
