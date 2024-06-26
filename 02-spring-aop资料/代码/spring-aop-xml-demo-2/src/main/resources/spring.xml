@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-        https://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!--配置包扫描路径-->
     <context:component-scan base-package="com.qf"></context:component-scan>
 
     <!--开启注解AOP-->
-<!--    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>-->
+    <!-- <aop:aspectj-autoproxy></aop:aspectj-autoproxy> -->
 
     <bean class="com.qf.aspect.LogAspectByXML" id="logAspectByXML"></bean>
 
     <aop:config>
         <aop:aspect ref="logAspectByXML">
-            <aop:pointcut id="mypc" expression="execution(* com.qf.service.impl.ProductServiceImpl.*(..)) &amp;&amp; args(java.lang.Long)"/>
-            <aop:before method="before" pointcut-ref="mypc" ></aop:before>
+            <aop:pointcut id="mypc"
+                expression="execution(* com.qf.service.impl.ProductServiceImpl.*(..)) &amp;&amp; args(java.lang.Long)" />
+            <aop:before method="before" pointcut-ref="mypc"></aop:before>
             <aop:after-returning method="afterReturning" pointcut-ref="mypc" returning="returnValue"></aop:after-returning>
-            <aop:after-throwing method="afterThrowing" pointcut="execution(* *(..))" throwing="exception" ></aop:after-throwing>
+            <aop:after-throwing method="afterThrowing" pointcut="execution(* *(..))"
+                throwing="exception"></aop:after-throwing>
             <aop:after method="after" pointcut="execution(* com.qf..ProductServiceImpl.*(..))"></aop:after>
-            <aop:around method="around" pointcut-ref="mypc" ></aop:around>
+            <aop:around method="around" pointcut-ref="mypc"></aop:around>
         </aop:aspect>
     </aop:config>
 

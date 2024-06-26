@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @Author: 索尔 VX：214490523
- * @技术交流社区： qfjava.cn
+ *          @技术交流社区： qfjava.cn
  */
 @Component
 public class ProductServiceImpl implements IProductService {
@@ -17,7 +17,7 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public void deleteById(Long id) {
-        if(id==null){
+        if (id == null) {
             throw new RuntimeException("id不能为空");
         }
         System.out.println("根据id删除商品");
