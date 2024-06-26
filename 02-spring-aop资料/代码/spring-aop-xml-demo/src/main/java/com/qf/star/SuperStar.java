@@ -9,5 +9,4 @@ public interface SuperStar {
      * @return 这一场演唱会的效果
      */
     String show(String city);
-
 }

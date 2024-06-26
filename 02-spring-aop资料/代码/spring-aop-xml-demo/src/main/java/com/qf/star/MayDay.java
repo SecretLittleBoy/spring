@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 public class MayDay {
 
     public String show(String city) {
+        if (city == null) {
+            throw new RuntimeException("断电了");
+        }
         System.out.println("五月天" + city + "举行了诺亚方舟演唱会");
-        // if (city != null) {
-        //     throw new RuntimeException("断电了");
-        // }
         return "演唱会太精彩了，观众都嗨晕了";
     }
 }
