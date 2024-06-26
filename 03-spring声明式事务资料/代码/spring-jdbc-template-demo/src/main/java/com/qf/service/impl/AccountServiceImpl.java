@@ -9,12 +9,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * @Author: 索尔 VX：214490523
- * @技术交流社区： qfjava.cn
- */
 @Service
-//@Transactional
+// @Transactional
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
@@ -44,10 +40,10 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     @Override
     public void transfer() {
-//        logService.log();
+        // logService.log();
         System.out.println("小红转出");
         this.reduce();
-//        int i = 10/0;
+        // int i = 10/0;
         System.out.println("小明转入");
         this.add();
     }
@@ -55,7 +51,7 @@ public class AccountServiceImpl implements AccountService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void log() {
         System.out.println("记录操作日志");
-        reduce();//模拟出对数据库中数据进行修改的效果
+        reduce();// 模拟出对数据库中数据进行修改的效果
     }
 
     @Transactional
@@ -69,14 +65,14 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void add() {
         accountDao.add();
-        int i = 10/0;
+        int i = 10 / 0;
         this.show();
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
-    public void show(){
-//        accountDao.add();
-//        int i = 10/0;
+    public void show() {
+        // accountDao.add();
+        // int i = 10/0;
         System.out.println("查询余额");
     }
 }

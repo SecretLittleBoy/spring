@@ -9,8 +9,6 @@ import javax.sql.DataSource;
 
 /**
  * 使用JdbcTemplate实现对数据的访问
- * @Author: 索尔 VX：214490523
- * @技术交流社区： qfjava.cn
  */
 @Repository
 public class AccountDaoImpl implements AccountDao {
@@ -18,7 +16,7 @@ public class AccountDaoImpl implements AccountDao {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public void setDataSource(DataSource dataSource){
+    public void setDataSource(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
@@ -28,7 +26,7 @@ public class AccountDaoImpl implements AccountDao {
     @Override
     public void reduce() {
         String sql = "update t_account set money = money - ? where id = ?";
-        jdbcTemplate.update(sql,500,2);
+        jdbcTemplate.update(sql, 500, 2);
     }
 
     /**
@@ -37,6 +35,6 @@ public class AccountDaoImpl implements AccountDao {
     @Override
     public void add() {
         String sql = "update t_account set money = money + ? where id = ?";
-        jdbcTemplate.update(sql,500,1);
+        jdbcTemplate.update(sql, 500, 1);
     }
 }
