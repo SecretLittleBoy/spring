@@ -14,16 +14,18 @@ import java.util.Arrays;
 // @Aspect
 // @Component
 public class LogAspectByXML {
-    // execution(访问权限修饰符 返回值类型 包名.类名.方法名(参数列表) 抛出异常类型)
     /*
-     * com.qf.service.impl.ProductServiceImpl.public void deleteById(Long id) {
+     * execution(访问权限修饰符 返回值类型 包名.类名.方法名(参数列表) 抛出异常类型)
+     * 
+     * 例如：
+     * com.qf.service.impl.ProductServiceImpl.public void deleteById(Long id)
+     * @Before("execution(public void com.qf.service.impl.ProductServiceImpl.deleteById(Long))")
      */
-    // @Before("execution(* *(..))")
 
     // @Pointcut("execution(* com.qf.service.impl.ProductServiceImpl.*(..)) &&
     // args(java.lang.Long)")
-    public void myPonitcut() {
-    }
+    // public void myPonitcut() {
+    // }
 
     // @Before("myPonitcut()")
     public void before(JoinPoint joinPoint) {
