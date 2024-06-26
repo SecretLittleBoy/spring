@@ -64,7 +64,7 @@ public class LogAspectByXML {
      * @return
      */
     // @Around("myPonitcut()")
-    public Object around(ProceedingJoinPoint joinPoint) {
+    public Object around(ProceedingJoinPoint joinPoint) throws Throwable{
         // 获得当前切入的方法的方法名
         String name = joinPoint.getSignature().getName();
         // 获得调用方法时传入的参数
@@ -77,6 +77,7 @@ public class LogAspectByXML {
             System.out.println("环绕返回通知，返回结果：" + result);
         } catch (Throwable e) {
             System.out.println("环绕后置异常通知：方法名：" + name + ",异常信息：" + e.getMessage());
+            throw e;
         } finally {
             System.out.println("环绕后置通知，方法名：" + name);
         }

@@ -17,12 +17,10 @@
 
     <aop:config>
         <aop:aspect ref="logAspectByXML">
-            <aop:pointcut id="mypc"
-                expression="execution(* com.qf.service.impl.ProductServiceImpl.*(..)) &amp;&amp; args(java.lang.Long)" />
+            <aop:pointcut id="mypc" expression="execution(* com.qf.service.impl.ProductServiceImpl.*(..)) &amp;&amp; args(java.lang.Long)" />
             <aop:before method="before" pointcut-ref="mypc"></aop:before>
             <aop:after-returning method="afterReturning" pointcut-ref="mypc" returning="returnValue"></aop:after-returning>
-            <aop:after-throwing method="afterThrowing" pointcut="execution(* *(..))"
-                throwing="exception"></aop:after-throwing>
+            <aop:after-throwing method="afterThrowing" pointcut="execution(* *(..))" throwing="exception"></aop:after-throwing>
             <aop:after method="after" pointcut="execution(* com.qf..ProductServiceImpl.*(..))"></aop:after>
             <aop:around method="around" pointcut-ref="mypc"></aop:around>
         </aop:aspect>

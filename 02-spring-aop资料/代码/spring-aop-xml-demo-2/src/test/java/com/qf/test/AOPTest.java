@@ -1,6 +1,9 @@
 package com.qf.test;
 
 import com.qf.service.IProductService;
+
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -22,6 +25,9 @@ public class AOPTest {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring.xml")) {
             IProductService productService = context.getBean(IProductService.class);
             productService.deleteById(null);
+            assertTrue(false);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
