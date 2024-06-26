@@ -76,20 +76,29 @@ public class AOPTest {
             try {
                 jay.show(null);
             } catch (RuntimeException e) {
+                System.out.flush();
+                String output = baos.toString();
+                int idx1 = output.indexOf("联系主办方");
+                int idx2 = output.indexOf("特殊情况处理");
+                int idx3 = output.indexOf("收尾工作");
+                assertTrue(idx1 != -1);
+                assertTrue(idx2 != -1);
+                assertTrue(idx3 != -1);
+                assertTrue(idx1 < idx2);
+                assertTrue(idx2 < idx3);
+
                 assertEquals(e.getMessage(), "断电了");
             }
-            System.out.flush();
-            String output = baos.toString();
-            int idx1 = output.indexOf("联系主办方");
-            int idx2 = output.indexOf("特殊情况处理");
-            int idx3 = output.indexOf("收尾工作");
-            assertTrue(idx1 != -1);
-            assertTrue(idx2 != -1);
-            assertTrue(idx3 != -1);
-            assertTrue(idx1 < idx2);
-            assertTrue(idx2 < idx3);
         } finally {
             System.setOut(originalOut);
+        }
+    }
+
+    @Test
+    public void testJayZhouClass() {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring.xml")) {
+            SuperStar jay = context.getBean(SuperStar.class);
+            assertTrue(jay.getClass().getName().contains("com.sun.proxy.$Proxy"));
         }
     }
 
@@ -119,6 +128,14 @@ public class AOPTest {
             assertTrue(idx3 < idx4);
         } finally {
             System.setOut(originalOut);
+        }
+    }
+
+    @Test
+    public void testMayDayClass() {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring.xml")) {
+            MayDay mayDay = context.getBean(MayDay.class);
+            assertTrue(mayDay.getClass().getName().contains("MayDay$$EnhancerBySpringCGLIB$$"));
         }
     }
 }

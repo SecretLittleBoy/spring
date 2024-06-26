@@ -15,5 +15,4 @@
     <!--开启注解AOP-->
     <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
-
 </beans>
