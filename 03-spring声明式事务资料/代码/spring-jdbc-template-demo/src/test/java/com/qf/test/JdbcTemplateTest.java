@@ -1,6 +1,9 @@
 package com.qf.test;
 
 import com.qf.entity.Student;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -13,13 +16,23 @@ import java.util.List;
 import java.util.Map;
 
 public class JdbcTemplateTest {
+    ClassPathXmlApplicationContext context;
+
+    @Before
+    public void before() {
+        context = new ClassPathXmlApplicationContext("classpath:spring.xml");
+    }
+
+    @After
+    public void after() {
+        context.close();
+    }
 
     /**
      * 查询
      */
     @Test
     public void test1() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring.xml");
         JdbcTemplate jdbcTemplate = context.getBean("jdbcTemplate", JdbcTemplate.class);
         // 使用jdbcTemplate执行sql实现查询
         Integer result = jdbcTemplate.queryForObject("select count(*) from student", Integer.class);
@@ -31,7 +44,6 @@ public class JdbcTemplateTest {
      */
     @Test
     public void test2() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring.xml");
         JdbcTemplate jdbcTemplate = context.getBean("jdbcTemplate", JdbcTemplate.class);
         // 使用jdbcTemplate执行sql实现查询
         Integer result = jdbcTemplate.queryForObject("select count(*) from student where sage>?", Integer.class, 19);
@@ -43,7 +55,6 @@ public class JdbcTemplateTest {
      */
     @Test
     public void test3() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring.xml");
         JdbcTemplate jdbcTemplate = context.getBean("jdbcTemplate", JdbcTemplate.class);
         // 把sql语句查询出来的结果集中的内容，封装在一个Student对象里面并返回
         Student student1 = jdbcTemplate.queryForObject("select * from student where sno=?", (resultSet, rowNum) -> {
@@ -63,7 +74,6 @@ public class JdbcTemplateTest {
      */
     @Test
     public void test4() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring.xml");
         JdbcTemplate jdbcTemplate = context.getBean("jdbcTemplate", JdbcTemplate.class);
         // 使用BeanPropertyRowMapper快速自动封装，前提是数据库表中的列名和Student实体的属性名相同
         Student student = jdbcTemplate.queryForObject("select * from student where sno=?",
@@ -76,7 +86,6 @@ public class JdbcTemplateTest {
      */
     @Test
     public void test5() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring.xml");
         JdbcTemplate jdbcTemplate = context.getBean("jdbcTemplate", JdbcTemplate.class);
         List<Student> students = jdbcTemplate.query("select * from student",
                 new BeanPropertyRowMapper<>(Student.class));
@@ -85,7 +94,6 @@ public class JdbcTemplateTest {
 
     @Test
     public void test51() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring.xml");
         JdbcTemplate jdbcTemplate = context.getBean("jdbcTemplate", JdbcTemplate.class);
         List<Student> students = jdbcTemplate.query("select * from student", (resultSet, rowNum) -> {
             Student student = new Student();
@@ -104,7 +112,6 @@ public class JdbcTemplateTest {
      */
     @Test
     public void test6() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring.xml");
         JdbcTemplate jdbcTemplate = context.getBean("jdbcTemplate", JdbcTemplate.class);
         int update = jdbcTemplate.update("insert into student(sno,sname) values(?,?)", 2001L, "xiaoming");
         System.out.println(update);
@@ -115,7 +122,6 @@ public class JdbcTemplateTest {
      */
     @Test
     public void test7() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring.xml");
         JdbcTemplate jdbcTemplate = context.getBean("jdbcTemplate", JdbcTemplate.class);
         int update = jdbcTemplate.update("update student set sname=? where sno=?", "xiaohong", 2001L);
         System.out.println(update);
@@ -126,7 +132,6 @@ public class JdbcTemplateTest {
      */
     @Test
     public void test8() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring.xml");
         JdbcTemplate jdbcTemplate = context.getBean("jdbcTemplate", JdbcTemplate.class);
         int update = jdbcTemplate.update("delete from student where sno=?", 2001L);
         System.out.println(update);
@@ -137,7 +142,6 @@ public class JdbcTemplateTest {
      */
     @Test
     public void test9() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring.xml");
         DataSource dataSource = context.getBean("dataSource", DataSource.class);
         NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
         // SQL查询需要的参数封装进Map中
