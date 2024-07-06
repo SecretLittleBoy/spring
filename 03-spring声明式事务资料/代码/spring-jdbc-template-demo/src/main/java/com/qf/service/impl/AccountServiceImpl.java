@@ -19,23 +19,23 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private LogService logService;
 
-/*
+    /*
     @Override
     public void transfer() {
-//        connection.begin();开启事务
+        // connection.begin();开启事务
         try {
             System.out.println("小红转出");
             accountDao.reduce();
-            int i = 10/0;
+            int i = 10 / 0;
             System.out.println("小明转入");
             accountDao.add();
         } catch (Exception e) {
             throw new RuntimeException(e);
-            //connection.rollback();回滚事务
+            // connection.rollback();回滚事务
         }
         // connection.commit();提交事务
     }
-*/
+    */
 
     @Transactional
     @Override
