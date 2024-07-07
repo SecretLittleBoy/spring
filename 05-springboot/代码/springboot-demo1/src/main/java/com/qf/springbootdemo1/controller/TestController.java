@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * @Author: 索尔
- */
 @RestController
 public class TestController {
 
@@ -34,7 +31,6 @@ public class TestController {
     public User getUser(){
         return user;
     }
-
 
     @Autowired
     private ImgConfig imgConfig;

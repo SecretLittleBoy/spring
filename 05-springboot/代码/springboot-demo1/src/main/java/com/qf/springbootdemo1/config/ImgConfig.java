@@ -5,25 +5,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * @Author: 索尔
- */
 @Configuration
 @Data
 @ConfigurationProperties(prefix = "imgconfig")
 public class ImgConfig {
 
-//    @Value("${imgConfig.path}")
+    // @Value("${imgConfig.path}")
     private String path;
 
-//    @Value("${imgConfig.extend}")
+    // @Value("${imgConfig.extend}")
     private String extend;
 
-//    @Value("${imgConfig.maxSize}")
+    // @Value("${imgConfig.maxSize}")
     private String maxSize;
-
-
-
-
-
 }
