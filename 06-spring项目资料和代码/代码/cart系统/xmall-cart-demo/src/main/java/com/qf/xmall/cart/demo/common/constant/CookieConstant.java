@@ -6,5 +6,4 @@ public interface CookieConstant {
 
     String CART_TOKEN = "cart_token";
 
-
 }

@@ -11,8 +11,6 @@ public interface ICartService {
 
     /**
      * 未登录状态下添加购物车
-     * @param request
-     * @return
      */
     ResultModel<String> addUnLoginCart(CartModelRequest request);
 
@@ -21,7 +19,6 @@ public interface ICartService {
     ResultModel update(CartModelRequest cartModelRequest);
 
     ResultModel<String> addLoginCart(CartModelRequest cartModelRequest);
-
 
     ResultModel merge(CartMergeRequest cartMergeRequest);
 }

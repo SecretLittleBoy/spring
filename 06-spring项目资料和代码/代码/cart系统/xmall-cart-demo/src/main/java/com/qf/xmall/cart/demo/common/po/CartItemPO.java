@@ -9,5 +9,4 @@ public class CartItemPO extends TbItemPO implements Serializable {
 
     private int count;
 
-
 }

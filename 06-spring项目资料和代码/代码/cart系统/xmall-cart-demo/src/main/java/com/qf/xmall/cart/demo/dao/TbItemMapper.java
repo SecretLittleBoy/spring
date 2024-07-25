@@ -1,6 +1,5 @@
 package com.qf.xmall.cart.demo.dao;
 
-
 import com.qf.xmall.cart.demo.common.po.TbItemPO;
 
 public interface TbItemMapper {

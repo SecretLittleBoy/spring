@@ -7,8 +7,6 @@ import java.io.Serializable;
 @Data
 public class LoginModelRequest implements Serializable {
 
-//    private String username;
-//    private String password;
     private String userName;
 
     private String userPwd;

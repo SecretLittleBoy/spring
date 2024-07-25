@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Data
 public class CartModelRequest implements Serializable {
 
-    private String token;//已经登陆后获取的login_token，或者是未登陆状态下的cart_token
+    private String token;// 已经登陆后获取的login_token，或者是未登陆状态下的cart_token
 
     private Long pid;
 
