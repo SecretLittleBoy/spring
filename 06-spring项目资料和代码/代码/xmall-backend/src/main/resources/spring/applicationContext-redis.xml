@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
-	
+
 	<!-- 连接redis单机版 -->
 	<bean id="jedisClientPool" class="cn.exrick.common.jedis.JedisClientPool">
 		<property name="jedisPool" ref="jedisPool"></property>
@@ -12,18 +12,18 @@
 		<property name="maxTotal" value="60000"/><!--最大连接数-->
 	</bean>
 	<!-- 无密码 -->
-<!--	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">-->
-<!--		<constructor-arg name="host" value="172.16.253.7"/>-->
-<!--		<constructor-arg name="port" value="7001"/>-->
-<!--	</bean>-->
-	<!-- 有密码 -->
 	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
-		<constructor-arg name="poolConfig" ref="genericObjectPoolConfig"/>
-		<constructor-arg name="host" value="39.98.91.192"/>
+		<constructor-arg name="host" value="127.0.0.1"/>
 		<constructor-arg name="port" value="6379"/>
-		<constructor-arg name="timeout" value="2000"/>
-		<constructor-arg name="password" value="mogu2018"/>
 	</bean>
+	<!-- 有密码 -->
+<!--	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">-->
+<!--		<constructor-arg name="poolConfig" ref="genericObjectPoolConfig"/>-->
+<!--		<constructor-arg name="host" value="39.98.91.192"/>-->
+<!--		<constructor-arg name="port" value="6379"/>-->
+<!--		<constructor-arg name="timeout" value="2000"/>-->
+<!--		<constructor-arg name="password" value="mogu2018"/>-->
+<!--	</bean>-->
 
 	<!-- 连接redis集群 -->
 	<!--<bean id="jedisClientCluster" class="cn.exrick.common.jedis.JedisClientCluster">

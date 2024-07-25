@@ -1,6 +1,6 @@
 package com.qf.xmall.sso.demo.common.utils;
 
-import com.qf.my.xmall.sso.demo.common.dto.LoginDTO;
+import com.qf.xmall.sso.demo.common.dto.LoginDTO;
 import org.springframework.data.redis.core.RedisTemplate;
 
 public class RedisUtil {
