@@ -1,0 +1,7 @@
+POST http://localhost:9091/sso/login
+Content-Type: application/json
+
+{
+    "userName": "test",
+    "userPwd": "test"
+}

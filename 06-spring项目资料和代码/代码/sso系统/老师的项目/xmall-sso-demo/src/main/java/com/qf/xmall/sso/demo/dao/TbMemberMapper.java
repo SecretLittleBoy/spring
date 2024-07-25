@@ -1,6 +1,5 @@
 package com.qf.xmall.sso.demo.dao;
 
-
 import com.qf.xmall.sso.demo.common.po.TbMemberPO;
 
 public interface TbMemberMapper {

@@ -1,6 +1,5 @@
 package com.qf.xmall.sso.demo.common.utils;
 
-
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -24,14 +23,12 @@ public class HttpClientUtil {
 
     /**
      * 带参数的get请求
-     * @param url
-     * @param param
-     * @return String
      */
     public static String doGet(String url, Map<String, String> param) {
-        // 创建Httpclient对象
-        if(url==null||"".equals(url))
+        if (url == null || "".equals(url)) {
             return null;
+        }
+
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         String resultString = "";
@@ -70,17 +67,15 @@ public class HttpClientUtil {
 
     /**
      * 不带参数的get请求
-     * @param url
-     * @return String
      */
     public static String doGet(String url) {
         return doGet(url, null);
     }
 
     public static String doGetByHeader(String url, String orgKey) {
-        // 创建Httpclient对象
-        if(url==null||"".equals(url))
+        if (url == null || "".equals(url)) {
             return null;
+        }
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         String resultString = "";
@@ -115,20 +110,16 @@ public class HttpClientUtil {
 
     /**
      * 带参数的post请求
-     * @param url
-     * @param param
-     * @return String
      */
     public static String doPost(String url, Map<String, String> param) {
-        // 创建Httpclient对象
         CloseableHttpClient httpClient = HttpClients.createDefault();
         CloseableHttpResponse response = null;
         String resultString = "";
         try {
             // 创建Http Post请求
             HttpPost httpPost = new HttpPost(url);
-            httpPost.addHeader("Content-Type","application/json; charset=utf-8");
-            httpPost.addHeader("X-Api-Sign-Version","2.0.0");
+            httpPost.addHeader("Content-Type", "application/json; charset=utf-8");
+            httpPost.addHeader("X-Api-Sign-Version", "2.0.0");
             // 创建参数列表
             if (param != null) {
                 List<NameValuePair> paramList = new ArrayList<>();
@@ -138,8 +129,6 @@ public class HttpClientUtil {
                 // 模拟表单
                 UrlEncodedFormEntity entity = new UrlEncodedFormEntity(paramList);
                 httpPost.setEntity(entity);
-//				httpPost.setEntity(new UrlEncodedFormEntity(nvps, encoding));
-//				httpPost.setEntity(new StringEntity(str, encoding));
             }
             // 执行http请求
             response = httpClient.execute(httpPost);
@@ -148,7 +137,9 @@ public class HttpClientUtil {
             e.printStackTrace();
         } finally {
             try {
-                response.close();
+                if (response != null) {
+                    response.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -158,8 +149,6 @@ public class HttpClientUtil {
 
     /**
      * 不带参数的post请求
-     * @param url
-     * @return String
      */
     public static String doPost(String url) {
         return doPost(url, null);
@@ -167,9 +156,6 @@ public class HttpClientUtil {
 
     /**
      * 传送json类型的post请求
-     * @param url
-     * @param json
-     * @return String
      */
     public static String doPostJson(String url, String json, String token) {
         // 创建Httpclient对象
@@ -177,14 +163,13 @@ public class HttpClientUtil {
         CloseableHttpResponse response = null;
         String resultString = "";
         try {
-            if(url.contains("?")){
+            if (url.contains("?")) {
                 url = url + "&access_token=" + token;
             } else {
                 url = url + "?access_token=" + token;
             }
             // 创建Http Post请求
             HttpPost httpPost = new HttpPost(url);
-            //httpPost.addHeader("Org-Key", orgKey);
             // 创建请求内容
             StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
             httpPost.setEntity(entity);
@@ -195,7 +180,9 @@ public class HttpClientUtil {
             e.printStackTrace();
         } finally {
             try {
-                response.close();
+                if (response != null) {
+                    response.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -203,13 +190,8 @@ public class HttpClientUtil {
         return resultString;
     }
 
-
-
     /**
      * 传送json类型的post请求
-     * @param url
-     * @param json
-     * @return String
      */
     public static String doPostJson(String url, String json) {
         // 创建Httpclient对象
@@ -219,7 +201,6 @@ public class HttpClientUtil {
         try {
             // 创建Http Post请求
             HttpPost httpPost = new HttpPost(url);
-            //httpPost.addHeader("Org-Key", orgKey);
             // 创建请求内容
             StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
             httpPost.setEntity(entity);
@@ -230,7 +211,9 @@ public class HttpClientUtil {
             e.printStackTrace();
         } finally {
             try {
-                response.close();
+                if (response != null) {
+                    response.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -239,4 +222,3 @@ public class HttpClientUtil {
     }
 
 }
-

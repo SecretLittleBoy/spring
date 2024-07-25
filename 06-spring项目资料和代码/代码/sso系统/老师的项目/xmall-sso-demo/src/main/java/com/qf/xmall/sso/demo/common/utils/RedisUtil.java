@@ -7,12 +7,9 @@ public class RedisUtil {
 
     /**
      * 保存键值对
-     * @param redisTemplate
-     * @param redisKey
-     * @param loginDTO
      */
     public static void save(RedisTemplate redisTemplate, String redisKey, LoginDTO loginDTO) {
-        redisTemplate.opsForValue().set(redisKey,loginDTO);
+        redisTemplate.opsForValue().set(redisKey, loginDTO);
     }
 
     public static Object get(RedisTemplate redisTemplate, String id) {

@@ -7,16 +7,9 @@ import com.qf.xmall.sso.demo.common.result.ResultModel;
 import com.qf.xmall.sso.demo.common.utils.HttpClientUtil;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-
-/**
- * @Author: 索尔
- */
 @Service
 public class CartService {
     public ResultModel merge(CartMergeRequest cartMergeRequest) {
-
         String json = JSON.toJSONString(cartMergeRequest);
         String result = HttpClientUtil.doPostJson(URLConstant.CART_MERGE_URL, json);
         ResultModel resultModel = JSON.parseObject(result, ResultModel.class);
