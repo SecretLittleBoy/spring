@@ -2,9 +2,9 @@ server:
   port: 9091
 spring:
   redis:
-    host: 39.98.91.192
+    host: 127.0.0.1
     port: 6379
-    password: mogu2018
+    # password: mogu2018
     jedis:
       pool:
         max-active: 8
@@ -13,7 +13,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/db_xmall?serverTimezone=Asia/Shanghai
     username: root
-    password: 12345678
+    password: 88888888
     type: com.alibaba.druid.pool.DruidDataSource
 # 指明mapper映射文件的位置
 mybatis:
