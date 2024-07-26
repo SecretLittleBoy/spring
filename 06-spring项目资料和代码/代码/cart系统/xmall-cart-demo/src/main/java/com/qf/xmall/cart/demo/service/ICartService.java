@@ -11,6 +11,8 @@ public interface ICartService {
 
     /**
      * 未登录状态下添加购物车
+     * 
+     * @return cartToken
      */
     ResultModel<String> addUnLoginCart(CartModelRequest request);
 

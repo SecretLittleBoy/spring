@@ -16,13 +16,9 @@ import java.util.Map;
 public class LoginService {
 
     public ResultModel checkLogin(String token) {
-
         Map<String, String> param = new HashMap<>();
         param.put("token", token);
         String result = HttpClientUtil.doGet(URLConstant.SSO_CHECKLOGIN_URL, param);
-
-        ResultModel resultModel = JSON.parseObject(result, ResultModel.class);
-
-        return resultModel;
+        return JSON.parseObject(result, ResultModel.class);
     }
 }
