@@ -1,5 +1,5 @@
 package com.spring.springframework;
 
-public interface BeanNameAware{
+public interface BeanNameAware {
     void setBeanName(String name);
 }

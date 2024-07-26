@@ -12,7 +12,7 @@ public class UserService implements BeanNameAware, ApplicationContextAware {
     private SpringApplicationContext applicationContext;
     private String beanName;
 
-    public void test(){
+    public void test() {
         System.out.println(addressService);
         System.out.println(applicationContext);
         System.out.println(beanName);
