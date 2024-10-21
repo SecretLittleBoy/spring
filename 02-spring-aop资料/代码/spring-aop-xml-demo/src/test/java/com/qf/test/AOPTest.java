@@ -24,16 +24,10 @@ public class AOPTest {
      * 测试周杰伦的切点
      * 当我们使用了Spring的AOP之后，此时向Spring容器里注册的就不再是被代理对象本身，而是代理对象。
      */
-    @Test
+    @Test(expected = NoSuchBeanDefinitionException.class)
     public void testJayZhou() {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring.xml")) {
             context.getBean(JayZhou.class);
-            assertTrue(false);
-        } catch (NoSuchBeanDefinitionException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
         }
     }
 
